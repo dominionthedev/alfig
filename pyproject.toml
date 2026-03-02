@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "alfig"
+version = "0.1.0"
+description = "Unified config library — TOML, JSON, YAML, and CONF interchangeably"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = []
+
+[project.optional-dependencies]
+yaml  = ["PyYAML>=6.0"]
+toml  = ["tomli-w>=1.0"]
+all   = ["PyYAML>=6.0", "tomli-w>=1.0"]
+
+[project.scripts]
+alfig = "alfig.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["alfig*"]
