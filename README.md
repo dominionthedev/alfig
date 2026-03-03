@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="https://github.com/dominionthedev/alfig/actions"><img src="https://img.shields.io/github/actions/workflow/status/dominionthedev/alfig/ci.yml?branch=main&label=CI&logo=github" alt="CI"></a>
-  <a href="https://pypi.org/project/alfig/"><img src="https://img.shields.io/pypi/v/alfig?color=7C3AED" alt="PyPI"></a>
-  <a href="https://pypi.org/project/alfig/"><img src="https://img.shields.io/pypi/pyversions/alfig?color=4F46E5" alt="Python"></a>
+  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/v/alfig-py?color=7C3AED" alt="PyPI"></a>
+  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/pyversions/alfig-py?color=4F46E5" alt="Python"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0EA5E9" alt="License"></a>
 </p>
 
@@ -19,11 +19,11 @@
 ## Install
 
 ```bash
-pip install alfig
+pip install alfig-py
 # With optional format support:
-pip install alfig[yaml]   # adds PyYAML
-pip install alfig[toml]   # adds tomli-w (for writing TOML)
-pip install alfig[all]    # everything
+pip install alfig-py[yaml]   # adds PyYAML
+pip install alfig-py[toml]   # adds tomli-w (for writing TOML)
+pip install alfig-py[all]    # everything
 ```
 
 > Python 3.11+ includes `tomllib` for reading TOML. For writing TOML, `tomli-w` is required.
@@ -75,28 +75,28 @@ config.save("settings.conf")
 
 ## Schema Reference
 
-| Definition            | Meaning                        |
-| --------------------- | ------------------------------ |
-| `"field": str`        | Required string field          |
-| `"field": int`        | Required int field             |
-| `"field": bool`       | Required bool field            |
-| `"field": float`      | Required float field           |
-| `"field": list`       | Required list field            |
-| `"field": dict`       | Required dict field            |
-| `"field": (str, "x")` | Optional string, default `"x"` |
-| `"field": (int, 0)`   | Optional int, default `0`      |
-| `"section": {...}`    | Nested section                 |
+| Definition            | Meaning                          |
+|-----------------------|----------------------------------|
+| `"field": str`        | Required string field            |
+| `"field": int`        | Required int field               |
+| `"field": bool`       | Required bool field              |
+| `"field": float`      | Required float field             |
+| `"field": list`       | Required list field              |
+| `"field": dict`       | Required dict field              |
+| `"field": (str, "x")` | Optional string, default `"x"`  |
+| `"field": (int, 0)`   | Optional int, default `0`       |
+| `"section": {...}`    | Nested section                   |
 
 ---
 
 ## Supported Formats
 
-| Format | Extension      | Read | Write | Notes                                                                 |
-| ------ | -------------- | ---- | ----- | --------------------------------------------------------------------- |
-| JSON   | `.json`        | ✓    | ✓     | Built-in                                                              |
-| YAML   | `.yaml` `.yml` | ✓    | ✓     | Requires `PyYAML`                                                     |
+| Format | Extension      | Read | Write | Notes                         |
+|--------|---------------|------|-------|-------------------------------|
+| JSON   | `.json`        | ✓    | ✓     | Built-in                     |
+| YAML   | `.yaml` `.yml` | ✓    | ✓     | Requires `PyYAML`            |
 | TOML   | `.toml`        | ✓    | ✓     | Read: `tomllib` (builtin 3.11+) / `tomli`; Write: `tomli-w` or `toml` |
-| CONF   | `.conf` `.ini` | ✓    | ✓     | Custom parser (see below)                                             |
+| CONF   | `.conf` `.ini` | ✓    | ✓     | Custom parser (see below)    |
 
 ---
 
@@ -143,14 +143,14 @@ This maps to the same dict as the equivalent JSON:
 
 **Auto-coercion rules** (all CONF values are strings at parse time):
 
-| Raw value        | Python type |
-| ---------------- | ----------- |
-| `true` / `false` | `bool`      |
-| `42`             | `int`       |
-| `3.14`           | `float`     |
-| `["a", "b"]`     | `list`      |
-| `{"x": 1}`       | `dict`      |
-| everything else  | `str`       |
+| Raw value          | Python type |
+|--------------------|-------------|
+| `true` / `false`   | `bool`      |
+| `42`               | `int`       |
+| `3.14`             | `float`     |
+| `["a", "b"]`       | `list`      |
+| `{"x": 1}`         | `dict`      |
+| everything else    | `str`       |
 
 ---
 
@@ -238,3 +238,14 @@ alfig/
     ├── toml_fmt.py
     └── conf_fmt.py    # Custom nested INI parser
 ```
+
+---
+
+## License
+
+MIT © [dominionthedev](https://github.com/dominionthedev)
+
+---
+
+<p align="left">
+  <img src="https://raw.githubusercontent.com/dominionthedev/dominionthedev/main/assets/watermark.svg" alt="DominionDev"/>
