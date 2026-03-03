@@ -21,7 +21,6 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.syntax import Syntax
 from rich.table import Table
-from rich.text import Text
 
 from alfig.core import Alfig
 from alfig.formats import detect_format, _REGISTRY

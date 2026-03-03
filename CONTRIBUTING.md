@@ -4,6 +4,25 @@ Thanks for your interest in contributing! This document covers the development w
 
 ---
 
+## Before every commit
+
+Run these two commands locally before pushing anything. They mirror exactly what CI checks:
+
+```bash
+ruff check alfig/          # lint — should print "All checks passed!"
+python -m build --sdist    # proves the package is installable end-to-end
+```
+
+And for good measure:
+
+```bash
+python -m pytest tests/ -v # confirm nothing is broken
+```
+
+If any of these fail locally, CI will fail too. Catching it before the push saves a round-trip.
+
+---
+
 ## Setup
 
 ```bash

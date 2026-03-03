@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "alfig"
@@ -10,17 +10,12 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 
-dependencies = [
-    "typer>=0.9.0",
-    "rich>=14.0.0",
-    "PyYAML>=6.0",
-    "tomli-w>=1.0"
-]
+dependencies = ["typer>=0.24.1", "rich>=14.3.3"]
 
 [project.optional-dependencies]
-yaml  = ["PyYAML>=6.0"]
-toml  = ["tomli-w>=1.0"]
-all   = ["PyYAML>=6.0", "tomli-w>=1.0"]
+yaml = ["PyYAML>=6.0"]
+toml = ["tomli-w>=1.0"]
+all = ["PyYAML>=6.0", "tomli-w>=1.0"]
 
 [project.scripts]
 alfig = "alfig.cli:main"

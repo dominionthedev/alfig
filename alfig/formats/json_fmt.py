@@ -1,7 +1,6 @@
 """JSON format handler."""
 
 import json
-from typing import Any
 
 
 def load(path: str) -> dict:

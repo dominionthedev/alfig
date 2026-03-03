@@ -5,21 +5,19 @@ try:
     _READ_LIB = "tomllib"
 except ImportError:
     try:
-        import tomli as tomllib
+        import tomli as tomllib  # type: ignore[no-redef]
         _READ_LIB = "tomli"
     except ImportError:
-        tomllib = None
+        tomllib = None  # type: ignore[assignment]
         _READ_LIB = None
 
-try:
-    import tomli_w
+import importlib.util as _ilu
+if _ilu.find_spec("tomli_w") is not None:
     _WRITE_LIB = "tomli_w"
-except ImportError:
-    try:
-        import toml
-        _WRITE_LIB = "toml"
-    except ImportError:
-        _WRITE_LIB = None
+elif _ilu.find_spec("toml") is not None:
+    _WRITE_LIB = "toml"
+else:
+    _WRITE_LIB = None
 
 
 def _check_read():
