@@ -1,12 +1,14 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="Alfig" width="600"/>
+  <img src="https://raw.githubusercontent.com/dominionthedev/alfig/main/assets/logo.svg" alt="Alfig" width="600"/>
 </p>
 
 <p align="center">
   <a href="https://github.com/dominionthedev/alfig/actions"><img src="https://img.shields.io/github/actions/workflow/status/dominionthedev/alfig/ci.yml?branch=main&label=CI&logo=github" alt="CI"></a>
-  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/v/alfig-py?color=7C3AED" alt="PyPI"></a>
-  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/pyversions/alfig-py?color=4F46E5" alt="Python"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0EA5E9" alt="License"></a>
+  <a href="https://github.com/dominionthedev/alfig/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/dominionthedev/alfig/release.yml?branch=main&label=Release&logo=github" alt="Release"></a>
+  <a href="https://github.com/dominionthedev/alfig/releases"><img src="https://img.shields.io/github/v/release/dominionthedev/alfig?color=7C3AED" alt="GitHub Release"></a>
+  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/v/alfig_py?color=7C3AED" alt="PyPI"></a>
+  <a href="https://pypi.org/project/alfig-py/"><img src="https://img.shields.io/pypi/pyversions/alfig_py?color=4F46E5" alt="Python"></a>
+  <a href="https://github.com/dominionthedev/alfig/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-0EA5E9" alt="License"></a>
 </p>
 
 <p align="center">

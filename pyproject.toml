@@ -9,8 +9,16 @@ description = "Unified config library — TOML, JSON, YAML, and CONF interchange
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
+authors = [
+    { name = "DominionDev", email = "dominionthedeveloper@gmail.com" }
+]
 
 dependencies = ["typer>=0.24.1", "rich>=14.3.3"]
+
+[project.urls]
+repository = "https://github.com/dominionthedev/alfig"
+homepage = "https://github.com/dominionthedev/alfig"
+documentation = "https://github.com/dominionthedev/alfig#readme"
 
 [project.optional-dependencies]
 yaml = ["PyYAML>=6.0"]
