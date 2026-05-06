@@ -12,7 +12,9 @@ Schema format:
     }
 """
 
-from typing import Any
+import json
+from typing import Any, Union
+import jsonschema
 
 SUPPORTED_TYPES = (int, float, str, bool, list, dict)
 
@@ -25,6 +27,53 @@ class SchemaError(Exception):
 class ValidationError(Exception):
     """Raised when config data doesn't match the schema."""
     pass
+
+
+class Schema:
+    """
+    Schema model for Alfig.
+    Supports both the original Alfig dictionary schema and JSON schema.
+    """
+
+    def __init__(self, schema_def: Union[dict, str]):
+        """
+        Initialize the Schema.
+        Args:
+            schema_def: Either a dictionary (Alfig schema or JSON schema)
+                        or a path to a JSON schema file.
+        """
+        self.raw_schema = schema_def
+        self.is_json_schema = False
+
+        if isinstance(schema_def, str):
+            with open(schema_def, 'r') as f:
+                self.schema_dict = json.load(f)
+            self.is_json_schema = True
+        elif isinstance(schema_def, dict):
+            self.schema_dict = schema_def
+            # Basic heuristic to detect JSON schema
+            if "$schema" in schema_def or "type" in schema_def and isinstance(schema_def["type"], str):
+                 self.is_json_schema = True
+        else:
+            raise SchemaError("Schema must be a dict or a path to a JSON schema file.")
+
+    def validate(self, data: dict) -> dict:
+        """
+        Validate data against the schema.
+        Returns a new dict with defaults filled in.
+        """
+        if self.is_json_schema:
+            try:
+                # jsonschema doesn't fill defaults by default
+                # We'll use a validator that does if needed, but for now just validate
+                jsonschema.validate(instance=data, schema=self.schema_dict)
+                # Note: filling defaults with jsonschema is tricky,
+                # might need a custom validator or just return data as is for now.
+                return data
+            except jsonschema.ValidationError as e:
+                raise ValidationError(str(e))
+        else:
+            return _validate_node(data, self.schema_dict)
 
 
 def _parse_field(field_def) -> tuple[type, bool, Any]:
@@ -115,12 +164,16 @@ def _validate_node(data: dict, schema: dict, path: str = "") -> dict:
     return result
 
 
-def validate(data: dict, schema: dict) -> dict:
+def validate(data: dict, schema: Union[dict, Schema]) -> dict:
     """
     Validate `data` against `schema`.
     Returns a new dict with defaults filled in.
     Raises ValidationError on failure.
     """
+    if isinstance(schema, Schema):
+        return schema.validate(data)
+
     if not isinstance(schema, dict):
-        raise SchemaError("Schema must be a dict.")
+        raise SchemaError("Schema must be a dict or a Schema instance.")
+
     return _validate_node(data, schema)
