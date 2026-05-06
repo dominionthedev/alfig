@@ -13,7 +13,7 @@ Schema format:
 """
 
 import json
-from typing import Any, Optional, Union
+from typing import Any, Union
 import jsonschema
 
 SUPPORTED_TYPES = (int, float, str, bool, list, dict)
