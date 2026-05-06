@@ -13,7 +13,7 @@ authors = [
     { name = "DominionDev", email = "dominionthedeveloper@gmail.com" }
 ]
 
-dependencies = ["typer>=0.24.1", "rich>=14.3.3"]
+dependencies = ["typer>=0.24.1", "rich>=14.3.3", "jsonschema>=4.20.0"]
 
 [project.urls]
 repository = "https://github.com/dominionthedev/alfig"

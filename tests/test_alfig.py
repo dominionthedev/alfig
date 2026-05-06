@@ -7,7 +7,7 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from alfig import Alfig, ValidationError, SchemaError
+from alfig import Alfig, ValidationError, SchemaError, Schema
 from alfig.formats import conf_fmt
 
 # -----------------------------------------------------------------------
@@ -70,6 +70,95 @@ def test_validate_bool_not_int():
     with pytest.raises(ValidationError, match="port"):
         cfg.validate()
 
+
+# -----------------------------------------------------------------------
+# JSON Schema support
+# -----------------------------------------------------------------------
+
+def test_json_schema_validation():
+    json_schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+            "port": {"type": "integer", "minimum": 1024}
+        },
+        "required": ["port"]
+    }
+    schema = Schema(json_schema)
+    cfg = Alfig(schema)
+
+    # Valid
+    cfg.load_dict({"port": 8080})
+    cfg.validate()
+
+    # Invalid type
+    cfg.load_dict({"port": "8080"})
+    with pytest.raises(ValidationError):
+        cfg.validate()
+
+    # Invalid value (range)
+    cfg.load_dict({"port": 80})
+    with pytest.raises(ValidationError):
+        cfg.validate()
+
+def test_json_schema_from_file(tmp_path):
+    json_schema = {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"}
+        }
+    }
+    schema_file = tmp_path / "schema.json"
+    schema_file.write_text(json.dumps(json_schema))
+
+    schema = Schema(str(schema_file))
+    cfg = Alfig(schema)
+    cfg.load_dict({"name": "Alfig"})
+    cfg.validate()
+    assert cfg.get("name") == "Alfig"
+
+
+# -----------------------------------------------------------------------
+# Merging, Interpolation, Env Loading
+# -----------------------------------------------------------------------
+
+def test_merge_load_dict():
+    cfg = Alfig()
+    cfg.load_dict({"a": 1, "b": {"c": 2}})
+    cfg.load_dict({"b": {"d": 3}, "e": 4}, merge=True)
+
+    assert cfg.get("a") == 1
+    assert cfg.get("b.c") == 2
+    assert cfg.get("b.d") == 3
+    assert cfg.get("e") == 4
+
+def test_interpolation(monkeypatch):
+    monkeypatch.setenv("HOST", "localhost")
+    monkeypatch.setenv("PORT", "5432")
+
+    cfg = Alfig()
+    cfg.load_dict({
+        "db": {
+            "url": "http://${HOST}:${PORT}",
+            "user": "${DB_USER:admin}"
+        }
+    })
+    cfg.interpolate()
+
+    assert cfg.get("db.url") == "http://localhost:5432"
+    assert cfg.get("db.user") == "admin"
+
+def test_load_env(monkeypatch):
+    monkeypatch.setenv("APP_SERVER__HOST", "127.0.0.1")
+    monkeypatch.setenv("APP_SERVER__PORT", "8080")
+    monkeypatch.setenv("APP_DEBUG", "true")
+
+    cfg = Alfig()
+    cfg.load_env(prefix="APP_")
+
+    assert cfg.get("server.host") == "127.0.0.1"
+    assert cfg.get("server.port") == 8080
+    assert cfg.get("debug") is True
 
 # -----------------------------------------------------------------------
 # get / set / delete
