@@ -6,7 +6,10 @@ Alfig follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Unreleased]
+## [v0.1.1] - 2026-05-07
+
+[Releases]: https://github.com/dominionthedev/alfig/releases/tag/v0.1.1
+[Changes]: https://github.com/dominionthedev/alfig/compare/v0.1.0...HEAD
 
 ---
 
@@ -43,5 +46,4 @@ First public release.
 - **Documentation** — API reference, CONF format specification
 - **Branding** — SVG logo and icon with gradient design
 
-[Unreleased]: https://github.com/dominionthedev/alfig/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/dominionthedev/alfig/releases/tag/v0.1.0

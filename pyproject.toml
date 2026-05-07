@@ -4,14 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "alfig-py"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unified config library — TOML, JSON, YAML, and CONF interchangeably"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [
-    { name = "DominionDev", email = "dominionthedeveloper@gmail.com" }
-]
+authors = [{ name = "DominionDev", email = "dominionthedeveloper@gmail.com" }]
 
 dependencies = ["typer>=0.24.1", "rich>=14.3.3", "jsonschema>=4.20.0"]
 

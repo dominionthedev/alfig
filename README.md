@@ -251,3 +251,4 @@ MIT © [dominionthedev](https://github.com/dominionthedev)
 
 <p align="left">
   <img src="https://raw.githubusercontent.com/dominionthedev/dominionthedev/main/assets/watermark.svg" alt="DominionDev"/>
+</p>
